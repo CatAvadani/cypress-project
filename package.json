@@ -1,26 +1,44 @@
 {
-  "name": "cypress-project",
+  "name": "cypress-nextjs-prisma",
   "version": "0.1.0",
   "private": true,
   "scripts": {
     "dev": "next dev",
     "build": "next build",
     "start": "next start",
-    "lint": "next lint"
+    "lint": "next lint",
+    "push": "prisma db push",
+    "seed": "prisma db seed",
+    "reset": "tsx prisma/reset.ts",
+    "studio": "prisma studio",
+    "cy:dev": "next dev --port 3100",
+    "cy:open": "dotenv -e .env.test --     cypress open --e2e -b chrome",
+    "test": "cross-env NODE_ENV=test       start-server-and-test cy:dev http://localhost:3100 cy:open",
+    "test:push": "dotenv -e .env.test --   prisma db push"
+  },
+  "prisma": {
+    "seed": "tsx prisma/seed.ts"
   },
   "dependencies": {
+    "@prisma/client": "^5.15.0",
+    "cross-env": "^7.0.3",
+    "dotenv-cli": "^7.4.2",
+    "next": "14.2.4",
     "react": "^18",
-    "react-dom": "^18",
-    "next": "14.2.4"
+    "react-dom": "^18"
   },
   "devDependencies": {
-    "typescript": "^5",
     "@types/node": "^20",
     "@types/react": "^18",
     "@types/react-dom": "^18",
-    "postcss": "^8",
-    "tailwindcss": "^3.4.1",
+    "cypress": "^13.11.0",
     "eslint": "^8",
-    "eslint-config-next": "14.2.4"
+    "eslint-config-next": "14.2.4",
+    "postcss": "^8",
+    "prisma": "^5.15.0",
+    "start-server-and-test": "^2.0.4",
+    "tailwindcss": "^3.4.1",
+    "tsx": "^4.15.2",
+    "typescript": "^5"
   }
 }
