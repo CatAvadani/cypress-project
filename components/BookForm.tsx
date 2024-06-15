@@ -6,6 +6,7 @@ import { useState } from 'react';
 export default function BookForm() {
   const [title, setTitle] = useState('');
   const [author, setAuthor] = useState('');
+  const [imageUrl, setImageUrl] = useState('');
   const [status, setStatus] = useState('To Read');
 
   const handleSubmit = async (e) => {
@@ -14,6 +15,7 @@ export default function BookForm() {
     await bookCreate(data);
     setTitle('');
     setAuthor('');
+    setImageUrl('');
     setStatus('To Read');
   };
 
@@ -39,6 +41,16 @@ export default function BookForm() {
             placeholder='Author'
             value={author}
             onChange={(e) => setAuthor(e.target.value)}
+            className='p-2 border rounded text-black'
+          />
+        </div>
+
+        <div className='flex flex-col'>
+          <input
+            type='text'
+            placeholder='Image URL'
+            value={imageUrl}
+            onChange={(e) => setImageUrl(e.target.value)}
             className='p-2 border rounded text-black'
           />
         </div>

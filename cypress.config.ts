@@ -25,8 +25,9 @@ async function reseed() {
     update: {},
     create: {
       id: 1,
-      title: 'The Catcher in the Rye',
-      author: 'J.D. Salinger',
+      title: 'The Great Gatsby',
+      author: 'F. Scott Fitzgerald',
+      imageUrl: 'https://m.media-amazon.com/images/I/81QuEGw8VPL._SY522_.jpg',
       status: 'To Read',
     },
   });
@@ -36,8 +37,9 @@ async function reseed() {
     update: {},
     create: {
       id: 2,
-      title: 'To Kill a Mockingbird',
-      author: 'Harper Lee',
+      title: 'In Search of Lost Time',
+      author: 'Marcel Proust',
+      imageUrl: 'https://m.media-amazon.com/images/I/61zuy-mRSIL._SY522_.jpg',
       status: 'Reading',
     },
   });
@@ -47,8 +49,46 @@ async function reseed() {
     update: {},
     create: {
       id: 3,
-      title: '1984',
-      author: 'George Orwell',
+      title: 'Crime and Punishment',
+      author: 'Fyodor Dostoyevsky',
+      imageUrl: 'https://m.media-amazon.com/images/I/81EcXiV-9WL._SY522_.jpg',
+      status: 'Completed',
+    },
+  });
+
+  await db.book.upsert({
+    where: { id: 4 },
+    update: {},
+    create: {
+      id: 4,
+      title: 'War and Peace',
+      author: 'Leo Tolstoy',
+      imageUrl: 'https://m.media-amazon.com/images/I/81s6DUyQCZL._SY522_.jpg',
+      status: 'To Read',
+    },
+  });
+
+  await db.book.upsert({
+    where: { id: 5 },
+    update: {},
+    create: {
+      id: 5,
+      title: 'Moby Dick',
+      author: 'Herman Melville',
+      imageUrl:
+        'https://m.media-amazon.com/images/I/61Vm+Z02frL._AC_UL640_FMwebp_QL65_.jpg',
+      status: 'Reading',
+    },
+  });
+
+  await db.book.upsert({
+    where: { id: 6 },
+    update: {},
+    create: {
+      id: 6,
+      title: 'Pride and Prejudice',
+      author: 'Jane Austen',
+      imageUrl: 'https://m.media-amazon.com/images/I/81OthjkJBuL._SY522_.jpg',
       status: 'Completed',
     },
   });

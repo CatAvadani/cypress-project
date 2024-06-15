@@ -8,6 +8,7 @@ export async function bookCreate(formData: any) {
     data: {
       title: formData.title,
       author: formData.author,
+      imageUrl: formData.imageUrl,
       status: formData.status,
     },
   });

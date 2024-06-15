@@ -12,6 +12,7 @@ model Book {
   id          Int      @id @default(autoincrement())
   title       String
   author      String
+  imageUrl    String?
   status      String   @default("To Read") 
   createdAt   DateTime @default(now())
   updatedAt   DateTime @updatedAt

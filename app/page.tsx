@@ -1,5 +1,6 @@
 import BookForm from '@/components/BookForm';
 import { db } from '@/prisma/db';
+import Image from 'next/image';
 
 export default async function Home() {
   const books = await db.book.findMany();
@@ -25,6 +26,14 @@ export default async function Home() {
               <h2 className='text-2xl font-semibold text-gray-700'>
                 {book.title}
               </h2>
+              {book.imageUrl && (
+                <Image
+                  src={book.imageUrl}
+                  width={200}
+                  height={300}
+                  alt={book.title}
+                />
+              )}
               <p className='text-gray-600'>by {book.author}</p>
               <p className='text-gray-600'>Status: {book.status}</p>
             </div>
