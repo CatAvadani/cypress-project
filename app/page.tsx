@@ -1,28 +1,33 @@
 import BookForm from '@/components/BookForm';
 import { db } from '@/prisma/db';
-import Image from 'next/image';
+import BookList from '../components/BookList';
+import { bookDelete, bookUpdateStatus } from './actions/books';
 
 export default async function Home() {
   const books = await db.book.findMany();
 
-  const refreshBooks = async () => {
-    const books = await db.book.findMany();
-    return books;
+  const handleDelete = async (id: number) => {
+    await bookDelete(id);
+  };
+
+  const handleUpdateStatus = async (id: number, status: string) => {
+    await bookUpdateStatus(id, status);
   };
 
   return (
     <main className='flex flex-col items-center justify-center min-h-screen p-4 bg-red-900 max-w-7xl mx-auto mt-6'>
       <h1 className='text-4xl font-bold text-white mb-8'>Book Tracker</h1>
-
       <BookForm />
 
-      <div className='w-full max-w-7xl mt-8'>
+      <BookList initialBooks={books} />
+
+      {/* <div className='w-full max-w-7xl mt-8'>
         {books.length > 0 ? (
           <div className='grid grid-cols-1 sm:grid-cols-3 md:grid-cols-5 gap-4 max-w-7xl'>
             {books.map((book) => (
               <div
                 key={book.id}
-                className=' bg-red-950 p-4 flex flex-col space-y-3 items-center rounded-sm'
+                className='bg-red-950 p-4 flex flex-col space-y-3 items-center rounded-sm'
               >
                 {book.imageUrl && (
                   <Image
@@ -37,13 +42,28 @@ export default async function Home() {
                   {book.title}
                 </h2>
                 <p className='text-white text-center'>by {book.author}</p>
-                {book.status === 'To Read' ? (
-                  <p className='text-orange-600 text-center'>To Read</p>
-                ) : book.status === 'Reading' ? (
-                  <p className='text-green-600 text-center'> Reading</p>
-                ) : (
-                  <p className='text-blue-600 text-center'>Completed</p>
-                )}
+                <div className='flex space-x-2'>
+                  <form action={() => handleUpdateStatus(book.id, 'To Read')}>
+                    <button className='bg-green-500 text-white px-2 py-1 rounded'>
+                      To Read
+                    </button>
+                  </form>
+                  <form action={() => handleUpdateStatus(book.id, 'Reading')}>
+                    <button className='bg-yellow-500 text-white px-2 py-1 rounded'>
+                      Reading
+                    </button>
+                  </form>
+                  <form action={() => handleUpdateStatus(book.id, 'Completed')}>
+                    <button className='bg-blue-500 text-white px-2 py-1 rounded'>
+                      Completed
+                    </button>
+                  </form>
+                </div>
+                <form action={() => handleDelete(book.id)}>
+                  <button className='bg-red-600 text-white px-2 py-1 mt-4 rounded'>
+                    Delete
+                  </button>
+                </form>
               </div>
             ))}
           </div>
@@ -52,7 +72,7 @@ export default async function Home() {
             No books found. Add some books to get started!
           </p>
         )}
-      </div>
+      </div> */}
     </main>
   );
 }
