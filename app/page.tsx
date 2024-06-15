@@ -11,33 +11,42 @@ export default async function Home() {
   };
 
   return (
-    <main className='flex flex-col items-center justify-center min-h-screen p-4 bg-gray-100'>
-      <h1 className='text-4xl font-bold text-gray-800 mb-8'>Book Tracker</h1>
+    <main className='flex flex-col items-center justify-center min-h-screen p-4 bg-red-900 max-w-7xl mx-auto mt-6'>
+      <h1 className='text-4xl font-bold text-white mb-8'>Book Tracker</h1>
 
       <BookForm />
 
-      <div className='w-full max-w-3xl bg-white shadow-md rounded-lg p-6 mt-8'>
+      <div className='w-full max-w-7xl mt-8'>
         {books.length > 0 ? (
-          books.map((book) => (
-            <div
-              key={book.id}
-              className='border-b border-gray-200 py-4 last:border-none'
-            >
-              <h2 className='text-2xl font-semibold text-gray-700'>
-                {book.title}
-              </h2>
-              {book.imageUrl && (
-                <Image
-                  src={book.imageUrl}
-                  width={200}
-                  height={300}
-                  alt={book.title}
-                />
-              )}
-              <p className='text-gray-600'>by {book.author}</p>
-              <p className='text-gray-600'>Status: {book.status}</p>
-            </div>
-          ))
+          <div className='grid grid-cols-1 sm:grid-cols-3 md:grid-cols-5 gap-4 max-w-7xl'>
+            {books.map((book) => (
+              <div
+                key={book.id}
+                className=' bg-red-950 p-4 flex flex-col space-y-3 items-center rounded-sm'
+              >
+                {book.imageUrl && (
+                  <Image
+                    src={book.imageUrl}
+                    width={150}
+                    height={200}
+                    alt={book.title}
+                    className='mb-8'
+                  />
+                )}
+                <h2 className='text-xl font-semibold text-yellow-500 text-center'>
+                  {book.title}
+                </h2>
+                <p className='text-white text-center'>by {book.author}</p>
+                {book.status === 'To Read' ? (
+                  <p className='text-orange-600 text-center'>To Read</p>
+                ) : book.status === 'Reading' ? (
+                  <p className='text-green-600 text-center'> Reading</p>
+                ) : (
+                  <p className='text-blue-600 text-center'>Completed</p>
+                )}
+              </div>
+            ))}
+          </div>
         ) : (
           <p className='text-gray-600'>
             No books found. Add some books to get started!
