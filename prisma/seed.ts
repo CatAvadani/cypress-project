@@ -1,10 +1,8 @@
 import { db } from './db';
 
 async function main() {
-  // Delete all existing books
   await db.book.deleteMany();
 
-  // Insert updated books
   await db.book.upsert({
     where: { id: 1 },
     update: {},
