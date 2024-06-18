@@ -25,10 +25,11 @@ export default function BookList({ books, setBooks }: BookListProps) {
   return (
     <div className='w-full max-w-7xl mt-8'>
       {books.length > 0 ? (
-        <div className='grid grid-cols-1 sm:grid-cols-3 lg:grid-cols-4 gap-4 max-w-7xl'>
+        <div className='grid grid-cols-1 sm:grid-cols-3 md:grid-cols-4 gap-4 max-w-7xl'>
           {books.map((book) => (
             <div
               key={book.id}
+              data-testid='book-card'
               className='bg-red-950 p-4 flex flex-col space-y-3 items-center rounded-sm shadow-md'
             >
               {book.imageUrl && (
