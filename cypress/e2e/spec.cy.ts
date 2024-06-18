@@ -14,7 +14,7 @@ describe('Book Tracker', () => {
     cy.get('input[placeholder="Image URL"]').type(
       'https://example.com/image.jpg'
     );
-    cy.get('select').select('To Read');
+    cy.get('form select').first().select('To Read');
     cy.get('button[type="submit"]').click();
 
     // User sees the new book in the list
@@ -28,7 +28,7 @@ describe('Book Tracker', () => {
     cy.get('input[placeholder="Image URL"]').type(
       'https://example.com/image3.jpg'
     );
-    cy.get('select').select('To Read');
+    cy.get('form select').first().select('To Read');
     cy.get('button[type="submit"]').click();
 
     // User sees the new book in the list
@@ -43,28 +43,44 @@ describe('Book Tracker', () => {
       .contains('Status: Reading')
       .should('be.visible');
   });
+});
 
-  // it('should delete a book', () => {
-  //   // User adds a new book
-  //   cy.get('input[placeholder="Title"]').type('Book to Delete');
-  //   cy.get('input[placeholder="Author"]').type('Jane Doe');
-  //   cy.get('input[placeholder="Image URL"]').type(
-  //     'https://example.com/image4.jpg'
-  //   );
-  //   cy.get('select').select('To Read');
-  //   cy.get('button[type="submit"]').click();
+describe('Book Tracker - Filter Functionality', () => {
+  beforeEach(() => {
+    cy.task('reseed');
+    cy.visit('/');
+  });
 
-  //   // User sees the new book in the list
-  //   cy.contains('Book to Delete').should('be.visible');
+  it('should filter books by "To Read" status', () => {
+    // Select "To Read" from the filter dropdown
+    cy.get('select').last().select('To Read');
 
-  //   // User deletes the book
-  //   cy.contains('Book to Delete')
-  //     .parent()
-  //     .within(() => {
-  //       cy.contains('Delete').click();
-  //     });
+    // Assert that only "To Read" books are visible
+    cy.get('[data-testid="book-card"]').should('have.length', 2);
+    cy.get('[data-testid="book-card"]').each(($el) => {
+      cy.wrap($el).contains('Status: To Read');
+    });
+  });
 
-  //   // The book is removed from the list on the homepage
-  //   cy.contains('Book to Delete', { timeout: 10000 }).should('not.exist');
-  // });
+  it('should filter books by "Reading" status', () => {
+    // Select "Reading" from the filter dropdown
+    cy.get('select').last().select('Reading');
+
+    // Assert that only "Reading" books are visible
+    cy.get('[data-testid="book-card"]').should('have.length', 2);
+    cy.get('[data-testid="book-card"]').each(($el) => {
+      cy.wrap($el).contains('Status: Reading');
+    });
+  });
+
+  it('should filter books by "Completed" status', () => {
+    // Select "Completed" from the filter dropdown
+    cy.get('select').last().select('Completed');
+
+    // Assert that only "Completed" books are visible
+    cy.get('[data-testid="book-card"]').should('have.length', 2);
+    cy.get('[data-testid="book-card"]').each(($el) => {
+      cy.wrap($el).contains('Status: Completed');
+    });
+  });
 });
