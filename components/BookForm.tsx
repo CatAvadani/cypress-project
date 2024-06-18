@@ -1,19 +1,24 @@
 'use client';
 
 import { bookCreate } from '@/app/actions/books';
+import { Book } from '@prisma/client';
 import { useState } from 'react';
 
-export default function BookForm() {
+interface BookFormProps {
+  addBook: (book: Book) => void;
+}
+
+export default function BookForm({ addBook }: BookFormProps) {
   const [title, setTitle] = useState('');
   const [author, setAuthor] = useState('');
   const [imageUrl, setImageUrl] = useState('');
   const [status, setStatus] = useState('To Read');
 
-  const handleSubmit = async (e) => {
+  const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
     const data = { title, author, imageUrl, status };
-    await bookCreate(data);
-    // await refreshBooks();
+    const newBook = await bookCreate(data);
+    addBook(newBook);
     setTitle('');
     setAuthor('');
     setImageUrl('');
@@ -24,7 +29,7 @@ export default function BookForm() {
     <div className='w-full mt-5'>
       <form
         onSubmit={handleSubmit}
-        className='space-y-4 w-full bg-red-950/40  p-4 rounded'
+        className='space-y-4 w-full bg-white shadow-md p-4 rounded'
       >
         <div className='grid grid-cols-1 sm:grid-cols-2 gap-4'>
           <div className='flex flex-col'>
@@ -36,7 +41,6 @@ export default function BookForm() {
               className='p-2 border rounded text-black'
             />
           </div>
-
           <div className='flex flex-col'>
             <input
               type='text'
@@ -46,7 +50,6 @@ export default function BookForm() {
               className='p-2 border rounded text-black'
             />
           </div>
-
           <div className='flex flex-col'>
             <input
               type='text'
@@ -56,7 +59,6 @@ export default function BookForm() {
               className='p-2 border rounded text-black'
             />
           </div>
-
           <div className='flex flex-col'>
             <select
               value={status}
@@ -69,7 +71,6 @@ export default function BookForm() {
             </select>
           </div>
         </div>
-
         <button
           type='submit'
           className='bg-blue-700 text-white font-bold py-2 px-4 rounded'

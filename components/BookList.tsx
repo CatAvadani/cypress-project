@@ -1,12 +1,15 @@
 'use client';
 
 import { bookDelete, bookUpdateStatus } from '@/app/actions/books';
+import { Book } from '@prisma/client';
 import Image from 'next/image';
-import { useState } from 'react';
 
-export default function BookList({ initialBooks }) {
-  const [books, setBooks] = useState(initialBooks);
+interface BookListProps {
+  books: Book[];
+  setBooks: (books: Book[]) => void;
+}
 
+export default function BookList({ books, setBooks }: BookListProps) {
   const handleDelete = async (id: number) => {
     await bookDelete(id);
     setBooks(books.filter((book) => book.id !== id));
@@ -26,7 +29,7 @@ export default function BookList({ initialBooks }) {
           {books.map((book) => (
             <div
               key={book.id}
-              className='bg-red-950 p-4 flex flex-col space-y-3 items-center rounded-sm'
+              className='bg-red-950 p-4 flex flex-col space-y-3 items-center rounded-sm shadow-md'
             >
               {book.imageUrl && (
                 <Image
@@ -37,26 +40,26 @@ export default function BookList({ initialBooks }) {
                   className='mb-8'
                 />
               )}
-              <h2 className='text-xl font-semibold text-yellow-500 text-center'>
+              <h2 className='text-xl font-semibold text-yellow-300 text-center'>
                 {book.title}
               </h2>
               <p className='text-white text-center'>by {book.author}</p>
               <p className='text-white text-center'>Status: {book.status}</p>
               <div className='flex space-x-2'>
                 <button
-                  className='bg-green-500 text-white p-1 rounded'
+                  className='bg-green-700 text-white p-1 rounded'
                   onClick={() => handleUpdateStatus(book.id, 'To Read')}
                 >
                   To Read
                 </button>
                 <button
-                  className='bg-yellow-500 text-white p-1 rounded'
+                  className='bg-yellow-700 text-white p-1 rounded'
                   onClick={() => handleUpdateStatus(book.id, 'Reading')}
                 >
                   Reading
                 </button>
                 <button
-                  className='bg-blue-500 text-white p-1 rounded'
+                  className='bg-blue-700 text-white p-1 rounded'
                   onClick={() => handleUpdateStatus(book.id, 'Completed')}
                 >
                   Completed

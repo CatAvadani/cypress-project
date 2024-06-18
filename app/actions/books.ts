@@ -1,30 +1,30 @@
 'use server';
 
 import { db } from '@/prisma/db';
+import { revalidatePath } from 'next/cache';
 
-export async function bookCreate(data: any) {
-  const book = await db.book.create({
-    data: {
-      title: data.title,
-      author: data.author,
-      imageUrl: data.imageUrl,
-      status: data.status,
-    },
-  });
+interface BookData {
+  title: string;
+  author: string;
+  imageUrl: string;
+  status: string;
+}
+
+export async function bookCreate(data: BookData) {
+  const book = await db.book.create({ data });
+  revalidatePath('/');
   return book;
 }
 
 export async function bookDelete(id: number) {
-  const book = await db.book.delete({
-    where: { id: id },
-  });
-  return book;
+  await db.book.delete({ where: { id } });
+  revalidatePath('/');
 }
 
 export async function bookUpdateStatus(id: number, status: string) {
-  const book = await db.book.update({
-    where: { id: id },
-    data: { status: status },
+  await db.book.update({
+    where: { id },
+    data: { status },
   });
-  return book;
+  revalidatePath('/');
 }
