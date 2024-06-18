@@ -1,38 +1,39 @@
 # Book Tracker
 
-## Project Description
+### Project Description
 
 Book Tracker is a full-stack web application that allows users to manage a collection of books. Users can add new books, update the status of existing books, and delete books. The application is built using Next.js for the frontend, a Node.js backend, and a Prisma database.
 
-## Setup Instructions
+### Setup Instructions
 
-### Installation
+**Installation**
 
 1. Clone the repository:
 
    git clone (https://github.com/CatAvadani/cypress-project.git)
+   
    cd repository directory
 
-### Install the dependencies:
+**Install the dependencies**
 
 npm install
 
-## Set up the database:
+**Set up the database:**
 
 npx prisma migrate dev --name init
 npx prisma db seed
 
-## Start the development server:
+**Start the development server:**
 
 npm run dev
 
-## Run Cypress tests
+**Run Cypress tests**
 
 npm run test
 
-## User Flow Documentation
+###User Flow Documentation
 
-### 1. Visit Home Page and View Existing Books
+**1. Visit Home Page and View Existing Books**
 
 **Flow:**
 
@@ -49,7 +50,7 @@ npm run test
 - Each book displays its title, author, image, and status.
 - The user sees buttons to change the status and delete the book.
 
-### 2. Add a New Book
+**2. Add a New Book**
 
 **Flow:**
 
@@ -70,7 +71,7 @@ npm run test
 - The form fields are cleared after the book is added.
 - The newly added book is visible on the list with its title, author, image, and status.
 
-### 3. Update Book Status
+**3. Update Book Status**
 
 **Flow:**
 
@@ -87,7 +88,7 @@ npm run test
 - The status of the selected book is updated.
 - The updated status is displayed next to the book's information.
 
-### 4. Delete a Book
+**4. Delete a Book**
 
 **Flow:**
 
@@ -103,7 +104,3 @@ npm run test
 
 - The book is removed from the list.
 - The deleted book no longer appears on the home page.
-
-```
-
-```
