@@ -22,6 +22,16 @@ export default function Home({ initialBooks }: HomeProps) {
     return book.status === filter;
   });
 
+  const updateBookStatus = (id: number, status: string) => {
+    setBooks((prevBooks) =>
+      prevBooks.map((book) => (book.id === id ? { ...book, status } : book))
+    );
+  };
+
+  const deleteBook = (id: number) => {
+    setBooks((prevBooks) => prevBooks.filter((book) => book.id !== id));
+  };
+
   return (
     <main className='flex flex-col items-center justify-center min-h-screen p-4 bg-red-900 max-w-7xl mx-auto mt-6'>
       <h1 className='text-4xl font-bold text-white mb-8'>Book Tracker</h1>
@@ -40,7 +50,11 @@ export default function Home({ initialBooks }: HomeProps) {
           <option value='Completed'>Completed</option>
         </select>
       </div>
-      <BookList books={filteredBooks} setBooks={setBooks} />
+      <BookList
+        books={filteredBooks}
+        onUpdateStatus={updateBookStatus}
+        onDelete={deleteBook}
+      />
     </main>
   );
 }

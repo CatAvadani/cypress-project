@@ -6,20 +6,23 @@ import Image from 'next/image';
 
 interface BookListProps {
   books: Book[];
-  setBooks: (books: Book[]) => void;
+  onUpdateStatus: (id: number, status: string) => void;
+  onDelete: (id: number) => void;
 }
 
-export default function BookList({ books, setBooks }: BookListProps) {
+export default function BookList({
+  books,
+  onUpdateStatus,
+  onDelete,
+}: BookListProps) {
   const handleDelete = async (id: number) => {
     await bookDelete(id);
-    setBooks(books.filter((book) => book.id !== id));
+    onDelete(id);
   };
 
   const handleUpdateStatus = async (id: number, status: string) => {
     await bookUpdateStatus(id, status);
-    setBooks(
-      books.map((book) => (book.id === id ? { ...book, status } : book))
-    );
+    onUpdateStatus(id, status);
   };
 
   return (
@@ -69,6 +72,7 @@ export default function BookList({ books, setBooks }: BookListProps) {
               <button
                 className='bg-red-600 text-white p-1 mt-4 rounded'
                 onClick={() => handleDelete(book.id)}
+                data-cy='delete-button'
               >
                 Delete
               </button>
