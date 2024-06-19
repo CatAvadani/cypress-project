@@ -32,6 +32,7 @@ export default function Home({ initialBooks }: HomeProps) {
           value={filter}
           onChange={(e) => setFilter(e.target.value)}
           className='p-1 border rounded text-black'
+          data-cy='filter-select'
         >
           <option value='All'>All</option>
           <option value='To Read'>To Read</option>

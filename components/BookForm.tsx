@@ -39,6 +39,7 @@ export default function BookForm({ addBook }: BookFormProps) {
               value={title}
               onChange={(e) => setTitle(e.target.value)}
               className='p-2 border rounded text-black'
+              data-cy='input-title'
             />
           </div>
           <div className='flex flex-col'>
@@ -48,6 +49,7 @@ export default function BookForm({ addBook }: BookFormProps) {
               value={author}
               onChange={(e) => setAuthor(e.target.value)}
               className='p-2 border rounded text-black'
+              data-cy='input-author'
             />
           </div>
           <div className='flex flex-col'>
@@ -57,6 +59,7 @@ export default function BookForm({ addBook }: BookFormProps) {
               value={imageUrl}
               onChange={(e) => setImageUrl(e.target.value)}
               className='p-2 border rounded text-black'
+              data-cy='input-image-url'
             />
           </div>
           <div className='flex flex-col'>
@@ -64,6 +67,7 @@ export default function BookForm({ addBook }: BookFormProps) {
               value={status}
               onChange={(e) => setStatus(e.target.value)}
               className='p-2 border rounded text-black'
+              data-cy='select-status'
             >
               <option value='To Read'>To Read</option>
               <option value='Reading'>Reading</option>
@@ -74,6 +78,7 @@ export default function BookForm({ addBook }: BookFormProps) {
         <button
           type='submit'
           className='bg-blue-700 text-white font-bold py-2 px-4 rounded'
+          data-cy='button-submit'
         >
           Add Book
         </button>

@@ -29,7 +29,7 @@ export default function BookList({ books, setBooks }: BookListProps) {
           {books.map((book) => (
             <div
               key={book.id}
-              data-testid='book-card'
+              data-cy='book-card'
               className='bg-red-950 p-4 flex flex-col space-y-3 items-center rounded-sm shadow-md'
             >
               {book.imageUrl && (
